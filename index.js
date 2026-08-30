@@ -5,34 +5,41 @@ const app = express();
 
 const PORT = process.env.PORT || 8080;
 
+
+// =====================================
 // Middleware
+// =====================================
+
 app.use(express.json());
 
-// Serve frontend
 app.use(express.static("public"));
 
 
-// ===============================
+// =====================================
 // API ROUTES
-// ===============================
+// =====================================
 
 // Root API
 app.get("/api", (req, res) => {
+
     res.json({
         application: "DevOps Dashboard",
         message: "Welcome to DevOps Dashboard PRO",
         status: "running"
     });
+
 });
 
 
 // Health Check
 app.get("/api/health", (req, res) => {
+
     res.status(200).json({
         status: "UP",
         message: "Application is healthy",
         timestamp: new Date().toISOString()
     });
+
 });
 
 
@@ -63,9 +70,9 @@ app.get("/api/message", (req, res) => {
 });
 
 
-// ===============================
+// =====================================
 // 404 HANDLER
-// ===============================
+// =====================================
 
 app.use((req, res) => {
 
@@ -77,23 +84,40 @@ app.use((req, res) => {
 });
 
 
-// ===================================== 
-//  Export application for testing 
-//  =====================================
+// =====================================
+// Export Express application
+// =====================================
 
 export { app };
 
-// ===============================
-// START SERVER
-// ===============================
 
-app.listen(PORT, "0.0.0.0", () => {
+// =====================================
+// Start HTTP server
+// =====================================
 
-    console.log("=================================");
-    console.log(" DevOps Dashboard PRO");
-    console.log("=================================");
-    console.log(` Server running on port ${PORT}`);
-    console.log(` http://localhost:${PORT}`);
-    console.log("=================================");
+export function startServer() {
 
-});
+    const server = app.listen(PORT, "0.0.0.0", () => {
+
+        console.log("=================================");
+        console.log(" DevOps Dashboard PRO");
+        console.log("=================================");
+        console.log(` Server running on port ${PORT}`);
+        console.log(` http://localhost:${PORT}`);
+        console.log("=================================");
+
+    });
+
+    return server;
+}
+
+
+// =====================================
+// Start server only when executed directly
+// =====================================
+
+if (process.argv[1] === new URL(import.meta.url).pathname) {
+
+    startServer();
+
+}
