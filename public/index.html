@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DevOps Dashboard PRO</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="container">
+
+            <div class="header-content">
+
+                <div>
+
+                    <h1>DevOps Dashboard</h1>
+
+                    <p>
+                        Node.js • Express • Docker • GitHub Actions
+                    </p>
+
+                </div>
+
+                <div class="pro-badge">
+                    PRO
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="container">
+
+
+        <!-- Application Status -->
+
+        <section class="hero">
+
+            <div>
+
+                <span class="section-label">
+                    APPLICATION STATUS
+                </span>
+
+                <h2>
+                    DevOps Dashboard PRO
+                </h2>
+
+                <p>
+                    Interactive Node.js application
+                    deployed through a CI/CD pipeline.
+                </p>
+
+            </div>
+
+
+            <div class="status-container">
+
+                <span
+                    id="statusDot"
+                    class="status-dot"
+                ></span>
+
+                <span id="statusText">
+                    Checking...
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             INFORMATION CARDS
+        ========================== -->
+
+        <section class="dashboard-grid">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    APP
+                </div>
+
+                <div>
+
+                    <p class="card-label">
+                        APPLICATION
+                    </p>
+
+                    <h3 id="appStatus">
+                        Checking...
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    JS
+                </div>
+
+                <div>
+
+                    <p class="card-label">
+                        NODE.JS
+                    </p>
+
+                    <h3 id="nodeVersion">
+                        Checking...
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ENV
+                </div>
+
+                <div>
+
+                    <p class="card-label">
+                        ENVIRONMENT
+                    </p>
+
+                    <h3 id="environment">
+                        Checking...
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    SYS
+                </div>
+
+                <div>
+
+                    <p class="card-label">
+                        SERVER
+                    </p>
+
+                    <h3 id="hostname">
+                        Checking...
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =========================
+             ACTIONS
+        ========================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="section-label">
+                        API CONTROLS
+                    </span>
+
+                    <h2>
+                        Application Controls
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="button-group">
+
+                <button
+                    id="healthButton"
+                    onclick="checkHealth()"
+                >
+                    Check Health
+                </button>
+
+
+                <button
+                    onclick="getServerInfo()"
+                >
+                    Server Info
+                </button>
+
+
+                <button
+                    onclick="testAPI()"
+                >
+                    Test API
+                </button>
+
+
+                <button
+                    onclick="refreshDashboard()"
+                >
+                    Refresh
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             API RESPONSE
+        ========================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="section-label">
+                        API RESPONSE
+                    </span>
+
+                    <h2>
+                        Response Monitor
+                    </h2>
+
+                </div>
+
+                <span
+                    id="responseStatus"
+                    class="response-status"
+                >
+                    READY
+                </span>
+
+            </div>
+
+
+            <pre id="responseBox">Click an API button to see the response.</pre>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            DevOps Dashboard PRO
+        </p>
+
+        <p>
+            Node.js + Express + Docker + GitHub Actions
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "devops-dashboard-with-github-action-pro",
+  "version": "1.0.0",
+  "description": "Interactive DevOps Dashboard using Node.js, Express, Docker and GitHub Actions",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "docker",
+    "github-actions",
+    "devops"
+  ],
+  "author": "Stephen",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.4"
+  }
+}
