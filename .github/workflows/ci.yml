@@ -1,0 +1,76 @@
+name: DevOps Dashboard PRO - CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+
+  test-and-build:
+
+    name: Test and Docker Build
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ==========================================
+      # 1. Checkout Repository
+      # ==========================================
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
+      # ==========================================
+      # 2. Setup Node.js
+      # ==========================================
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+
+      # ==========================================
+      # 3. Install Dependencies
+      # ==========================================
+
+      - name: Install dependencies
+        run: npm ci
+
+
+      # ==========================================
+      # 4. Run Tests
+      # ==========================================
+
+      - name: Run tests
+        run: npm test
+
+
+      # ==========================================
+      # 5. Build Docker Image
+      # ==========================================
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t devops-dashboard-pro:${{ github.sha }} \
+            .
+
+
+      # ==========================================
+      # 6. Verify Docker Image
+      # ==========================================
+
+      - name: Verify Docker image
+        run: |
+          docker images
+          
