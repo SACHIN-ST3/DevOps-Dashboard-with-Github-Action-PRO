@@ -1,0 +1,72 @@
+name: DevOps Dashboard PRO - CD
+
+on:
+  workflow_run:
+    workflows:
+      - "DevOps Dashboard PRO - CI"
+    types:
+      - completed
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    if: >
+      ${{ github.event.workflow_run.conclusion == 'success' &&
+          github.event.workflow_run.event == 'push' &&
+          github.event.workflow_run.head_branch == 'main' }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Deploy application to EC2
+        uses: appleboy/ssh-action@v1.2.5
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+
+          script: |
+            set -e
+
+            IMAGE="ghcr.io/sachin-st3/devops-dashboard-pro:${{ github.event.workflow_run.head_sha }}"
+
+            echo "================================="
+            echo " Deploying DevOps Dashboard PRO"
+            echo "================================="
+
+            echo "Image:"
+            echo "$IMAGE"
+
+            echo "Pulling new image..."
+            docker pull "$IMAGE"
+
+            echo "Stopping old container..."
+            docker stop devops-dashboard || true
+
+            echo "Removing old container..."
+            docker rm devops-dashboard || true
+
+            echo "Starting new container..."
+
+            docker run -d \
+              --name devops-dashboard \
+              -p 8080:8080 \
+              --restart unless-stopped \
+              "$IMAGE"
+
+            echo "Waiting for application..."
+            sleep 5
+
+            echo "Running health check..."
+
+            curl --fail \
+              http://localhost:8080/api/health
+
+            echo ""
+            echo "================================="
+            echo " Deployment successful!"
+            echo "================================="
+
+            docker ps
